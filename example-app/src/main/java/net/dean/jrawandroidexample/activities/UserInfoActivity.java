@@ -25,7 +25,7 @@ public class UserInfoActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(LoggedInAccount data) {
                 ((TextView) findViewById(R.id.user_name)).setText("Name: " + data.getFullName());
-                ((TextView) findViewById(R.id.user_created)).setText("Created: " + data.getCreatedUtc());
+                ((TextView) findViewById(R.id.user_created)).setText("Created: " + data.getCreated());
                 ((TextView) findViewById(R.id.user_link_karma)).setText("Link karma: " + data.getLinkKarma());
                 ((TextView) findViewById(R.id.user_comment_karma)).setText("Comment karma: " + data.getCommentKarma());
                 ((TextView) findViewById(R.id.user_has_mail)).setText("Has mail? " + (data.getInboxCount() > 0));

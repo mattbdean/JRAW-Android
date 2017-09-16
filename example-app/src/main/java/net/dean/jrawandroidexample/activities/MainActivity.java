@@ -13,6 +13,7 @@ import net.dean.jraw.auth.AuthenticationState;
 import net.dean.jraw.auth.NoSuchTokenException;
 import net.dean.jraw.http.oauth.Credentials;
 import net.dean.jraw.http.oauth.OAuthException;
+import net.dean.jrawandroidexample.App;
 import net.dean.jrawandroidexample.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Credentials... params) {
                 try {
-                    AuthenticationManager.get().refreshAccessToken(LoginActivity.CREDENTIALS);
+                    AuthenticationManager.get().refreshAccessToken(App.getCredentials());
                 } catch (NoSuchTokenException | OAuthException e) {
                     Log.e(TAG, "Could not refresh access token", e);
                 }
