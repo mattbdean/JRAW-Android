@@ -1,0 +1,8 @@
+sudo: false
+language: java
+jdk:
+- oraclejdk8
+script:
+- "./gradlew check jacocoTestReportDebug"
+after_success:
+- bash <(curl -s https://codecov.io/bash) -f lib/build/reports/jacoco/debug/jacoco.xml
