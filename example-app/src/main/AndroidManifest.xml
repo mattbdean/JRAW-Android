@@ -15,25 +15,23 @@
         <meta-data
             android:name="net.dean.jraw.android.REDDIT_USERNAME"
             android:value="thatJavaNerd" />
-
         <meta-data
             android:name="net.dean.jraw.android.CLIENT_ID"
-            android:value="foobar" />
-
+            android:value="ZKe8PaIqR8Jzcg" />
         <meta-data
             android:name="net.dean.jraw.android.REDIRECT_URL"
-            android:value="http://google.com" />
+            android:value="https://github.com/mattbdean/JRAW-Android" />
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-
+            android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NewUserActivity" />
+        <activity android:name=".UserOverviewActivity" />
     </application>
-
 </manifest>
