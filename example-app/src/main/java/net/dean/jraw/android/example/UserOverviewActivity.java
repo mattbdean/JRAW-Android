@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import net.dean.jraw.RedditClient;
@@ -85,6 +86,13 @@ public class UserOverviewActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onPreExecute() {
+            ProgressBar progressBar = getProgressBar();
+            if (progressBar != null)
+                progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected Account doInBackground(RedditClient... redditClients) {
             return redditClients[0].me().about();
         }
@@ -92,8 +100,21 @@ public class UserOverviewActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Account account) {
             // Display the fetched account if the Activity still exists
+            UserOverviewActivity activity = this.activity.get();
+            if (activity != null)
+                activity.show(account);
+
+            // Prefer INVISIBLE instead of GONE so everything doesn't get shifted up a few pixels
+            // once loading is done
+            ProgressBar progressBar = getProgressBar();
+            if (progressBar != null)
+                progressBar.setVisibility(View.INVISIBLE);
+        }
+
+        private ProgressBar getProgressBar() {
             if (this.activity.get() != null)
-                this.activity.get().show(account);
+                return this.activity.get().findViewById(R.id.progress);
+            return null;
         }
     }
 }
