@@ -14,7 +14,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = intArrayOf(25))
+@Config(sdk = [25])
 class ManifestAppInfoProviderTest {
     private val mockClientId = "<client ID>"
     private val mockRedirectUrl = "<redirect URL>"
