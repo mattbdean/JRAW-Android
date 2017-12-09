@@ -37,6 +37,14 @@ class SharedPreferencesTokenStoreTest {
     }
 
     @Test
+    fun shouldNotTryToParseNonStrings() {
+        store.sharedPreferences.edit().putInt("foo", 4).apply()
+        store.load()
+
+        store.size().should.equal(0)
+    }
+
+    @Test
     fun shouldSaveToPrefs() {
         val authData = mockAuthData()
         store.sharedPreferences.getString(username, null).should.be.`null`
