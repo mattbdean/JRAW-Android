@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import net.dean.jraw.RedditClient;
@@ -25,6 +26,14 @@ public class UserOverviewActivity extends AppCompatActivity {
 
         // Fetch the user's account information
         new GetUserInfoTask(this).execute(App.getAccountHelper().getReddit());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        // Provide the user two ways to log out: the "log out" button, and exiting this activity
+        onLogout(null);
     }
 
     private void show(Account account) {
@@ -58,6 +67,13 @@ public class UserOverviewActivity extends AppCompatActivity {
 
     private static String formatInt(int n) {
         return NumberFormat.getInstance().format(n);
+    }
+
+    public void onLogout(View view) {
+        // All this does is remove the current RedditClient reference. If we tried to do
+        // App.getAccountHelper().getReddit(), it would throw an IllegalStateException.
+        App.getAccountHelper().logout();
+        finish();
     }
 
     private static final class GetUserInfoTask extends AsyncTask<RedditClient, Void, Account> {

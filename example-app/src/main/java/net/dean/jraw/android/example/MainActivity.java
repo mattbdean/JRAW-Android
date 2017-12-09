@@ -20,6 +20,8 @@ import java.util.TreeMap;
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_CODE_LOGIN = 0;
 
+    private AuthDataAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +30,9 @@ public class MainActivity extends AppCompatActivity {
         // Create the RecyclerView's LayoutManager and Adapter
         RecyclerView storedDataList = findViewById(R.id.storedDataList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        RecyclerView.Adapter adapter = new AuthDataAdapter(storedDataList, App.getTokenStore());
+        this.adapter = new AuthDataAdapter(storedDataList, App.getTokenStore());
 
         // Configure the RecyclerView
-        storedDataList.setHasFixedSize(true);
         storedDataList.setLayoutManager(layoutManager);
         storedDataList.setAdapter(adapter);
         storedDataList.addItemDecoration(new DividerItemDecoration(this, layoutManager.getOrientation()));
@@ -40,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
         boolean hasData = App.getTokenStore().size() == 0;
         storedDataList.setVisibility(hasData ? View.GONE : View.VISIBLE);
         findViewById(R.id.noDataMessage).setVisibility(hasData ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // The data in the TokenStore might have changed, let's update the RecyclerView
+        adapter.update();
     }
 
     // Called when the FAB is clicked
@@ -60,16 +69,23 @@ public class MainActivity extends AppCompatActivity {
      * This Adapter pulls its data from a TokenStore
      */
     private static class AuthDataAdapter extends RecyclerView.Adapter<AuthDataViewHolder> {
+        private DeferredPersistentTokenStore tokenStore;
         private List<String> usernames;
         private TreeMap<String, PersistedAuthData> data;
         private RecyclerView recyclerView;
 
         private AuthDataAdapter(RecyclerView recyclerView, DeferredPersistentTokenStore tokenStore) {
             this.recyclerView = recyclerView;
+            this.tokenStore = tokenStore;
+            update();
+        }
+
+        private void update() {
             this.data = new TreeMap<>(tokenStore.data());
 
             // Prefer this instead of tokenStore.getUsernames() because this.data.keySet() is sorted
             this.usernames = new ArrayList<>(this.data.keySet());
+            notifyDataSetChanged();
         }
 
         @Override
