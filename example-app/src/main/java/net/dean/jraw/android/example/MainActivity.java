@@ -1,18 +1,20 @@
 package net.dean.jraw.android.example;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import net.dean.jraw.models.PersistedAuthData;
 import net.dean.jraw.oauth.DeferredPersistentTokenStore;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         // Create the RecyclerView's LayoutManager and Adapter
         RecyclerView storedDataList = findViewById(R.id.storedDataList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        this.adapter = new AuthDataAdapter(storedDataList, App.getTokenStore());
+        this.adapter = new AuthDataAdapter(this, storedDataList, App.getTokenStore());
 
         // Configure the RecyclerView
         storedDataList.setLayoutManager(layoutManager);
@@ -69,12 +71,14 @@ public class MainActivity extends AppCompatActivity {
      * This Adapter pulls its data from a TokenStore
      */
     private static class AuthDataAdapter extends RecyclerView.Adapter<AuthDataViewHolder> {
-        private DeferredPersistentTokenStore tokenStore;
+        private final WeakReference<MainActivity> activity;
+        private final DeferredPersistentTokenStore tokenStore;
         private List<String> usernames;
         private TreeMap<String, PersistedAuthData> data;
         private RecyclerView recyclerView;
 
-        private AuthDataAdapter(RecyclerView recyclerView, DeferredPersistentTokenStore tokenStore) {
+        private AuthDataAdapter(MainActivity mainActivity, RecyclerView recyclerView, DeferredPersistentTokenStore tokenStore) {
+            this.activity = new WeakReference<>(mainActivity);
             this.recyclerView = recyclerView;
             this.tokenStore = tokenStore;
             update();
@@ -104,7 +108,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     int itemPos = recyclerView.getChildLayoutPosition(view);
-                    Log.i("f", String.format("[%d] %s", itemPos, usernames.get(itemPos)));
+
+                    // Potential bug: Clicking on two different items in a very short period of time
+                    // could cause this task to be executed twice
+                    new ReauthenticationTask(activity).execute(usernames.get(itemPos));
                 }
             });
 
@@ -131,6 +138,29 @@ public class MainActivity extends AppCompatActivity {
         private AuthDataViewHolder(TokenStoreUserView itemView) {
             super(itemView);
             this.view = itemView;
+        }
+    }
+
+    private static class ReauthenticationTask extends AsyncTask<String, Void, Void> {
+        private final WeakReference<MainActivity> activity;
+
+        ReauthenticationTask(WeakReference<MainActivity> activity) {
+            this.activity = activity;
+        }
+
+        @Override
+        protected Void doInBackground(String... usernames) {
+            App.getAccountHelper().switchToUser(usernames[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Activity activity = this.activity.get();
+
+            if (activity != null) {
+                activity.startActivity(new Intent(activity, UserOverviewActivity.class));
+            }
         }
     }
 }
