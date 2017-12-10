@@ -12,4 +12,5 @@
 
     <string name="no_stored_data">There\'s nothing here ¯\\_(ツ)_/¯</string>
     <string name="new_user">New user</string>
+    <string name="access_token_expired">Access token expired</string>
 </resources>

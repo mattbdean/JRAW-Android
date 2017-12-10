@@ -5,7 +5,6 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.TextView;
 
 import net.dean.jraw.models.OAuthData;
@@ -48,7 +47,8 @@ public class TokenStoreUserView extends ConstraintLayout {
             // Update the TextView
             textView(R.id.expiresIn).setText(getContext().getString(R.string.access_token_status_short, diffMinutes));
         } else {
-            Log.e(TokenStoreUserView.class.getSimpleName(), "Expected OAuthData for " + username);
+            // No OAuthData, it's expired
+            textView(R.id.expiresIn).setText(R.string.access_token_expired);
         }
 
         // Simply set this guy to say if there's a refresh token or not
