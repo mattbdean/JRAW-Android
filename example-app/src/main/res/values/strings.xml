@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">JRAW-Android Example</string>
     <string name="title_activity_main">Choose an account</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
 
     <string name="comment_karma">%s comment karma</string>
     <string name="link_karma">%s link karma</string>
@@ -10,7 +8,6 @@
     <string name="access_token_status_short">Expires in %d minutes</string>
     <string name="refresh_token">Refresh token on hand</string>
     <string name="no_refresh_token">No refresh token on hand</string>
-    <string name="do_refresh_access_token">Refresh access token</string>
     <string name="logout">Logout</string>
 
     <string name="no_stored_data">There\'s nothing here ¯\\_(ツ)_/¯</string>
