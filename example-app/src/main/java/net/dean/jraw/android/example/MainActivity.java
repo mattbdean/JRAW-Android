@@ -32,6 +32,7 @@ import java.util.TreeMap;
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_CODE_LOGIN = 0;
 
+    private RecyclerView storedDataList;
     private AuthDataAdapter adapter;
 
     @Override
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Create the RecyclerView's LayoutManager and Adapter
-        RecyclerView storedDataList = findViewById(R.id.storedDataList);
+        this.storedDataList = findViewById(R.id.storedDataList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         this.adapter = new AuthDataAdapter(this, storedDataList, App.getTokenStore());
 
@@ -48,11 +49,6 @@ public class MainActivity extends AppCompatActivity {
         storedDataList.setLayoutManager(layoutManager);
         storedDataList.setAdapter(adapter);
         storedDataList.addItemDecoration(new DividerItemDecoration(this, layoutManager.getOrientation()));
-
-        // Show the RecyclerView if there's data, otherwise show a message
-        boolean hasData = App.getTokenStore().size() == 0;
-        storedDataList.setVisibility(hasData ? View.GONE : View.VISIBLE);
-        findViewById(R.id.noDataMessage).setVisibility(hasData ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -61,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
 
         // The data in the TokenStore might have changed, let's update the RecyclerView
         adapter.update();
+
+        // Show the RecyclerView if there's data, otherwise show a message
+        boolean hasData = App.getTokenStore().size() == 0;
+        storedDataList.setVisibility(hasData ? View.GONE : View.VISIBLE);
+        findViewById(R.id.noDataMessage).setVisibility(hasData ? View.VISIBLE : View.GONE);
     }
 
     // Called when the FAB is clicked
