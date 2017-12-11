@@ -4,6 +4,8 @@ This is an extension to the [Java Reddit API Wrapper](https://github.com/mattbde
 
 ## Getting Started
 
+Before using this library it is highly recommended that you first read the [OAuth2 page](https://mattbdean.gitbooks.io/jraw/oauth2.html) in the JRAW documentation.
+
 First create a reddit OAuth2 app [here](https://www.reddit.com/prefs/apps). Note the client ID and redirect URL, you'll need these later.
 
 Add these `<meta-data>` keys to your manifest:

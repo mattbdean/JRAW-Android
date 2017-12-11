@@ -18,8 +18,14 @@ import net.dean.jraw.oauth.StatefulAuthHelper;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * This activity is dedicated to a WebView to guide the user through the authentication process.
+ *
+ * First, a StatefulAuthHelper is created by calling App.getAccountHelper().switchToNewUser(). We
+ * pull data from/send data to this object during the authentication phase. When the user has been
+ * authenticated or the user has denied our app access to their account, the activity finishes.
+ */
 public class NewUserActivity extends AppCompatActivity {
-    private static final String TAG = NewUserActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +74,8 @@ public class NewUserActivity extends AppCompatActivity {
         // Generate an authentication URL
         boolean requestRefreshToken = true;
         boolean useMobileSite = true;
-        String authUrl = helper.getAuthorizationUrl(requestRefreshToken, useMobileSite, "read", "identity");
+        String[] scopes = new String[]{ "read", "identity" };
+        String authUrl = helper.getAuthorizationUrl(requestRefreshToken, useMobileSite, scopes);
 
         // Finally, show the authorization URL to the user
         webView.loadUrl(authUrl);

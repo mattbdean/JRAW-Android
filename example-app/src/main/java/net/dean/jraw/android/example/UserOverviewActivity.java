@@ -18,6 +18,11 @@ import java.text.NumberFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Shows some very simple information about the currently authenticated user. Currently, it shows
+ * their username, link karma, comment karma, access token expiration, and if we have a refresh
+ * token for them.
+ */
 public class UserOverviewActivity extends AppCompatActivity {
 
     @Override

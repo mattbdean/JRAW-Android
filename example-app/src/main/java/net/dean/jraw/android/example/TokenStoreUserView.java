@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * A very simple view group that displays some information about a user and its associated
- * PersistedAuthData instance.
+ * PersistedAuthData instance. Used by MainActivity's RecyclerView.
  */
 public class TokenStoreUserView extends ConstraintLayout {
     public TokenStoreUserView(Context context) {

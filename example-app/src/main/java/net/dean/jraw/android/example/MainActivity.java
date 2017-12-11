@@ -19,6 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
+/**
+ * The main activity is a list of all stored authentication data. This data is provided from
+ * App.getTokenStore(). When an item in the list is clicked, we attempt to authenticate ourselves as
+ * that user. If we have an unexpired access token, we use that. If we only have a refresh token,
+ * we use that and request a fresh access token on the next normal request. After we authenticate,
+ * the UserOverviewActivity is started.
+ *
+ * This activity has a FAB in the bottom right-hand corner for authenticating new users. When
+ * pressed, the NewUserActivity is started. See that class' documentation for what it does.
+ */
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_CODE_LOGIN = 0;
 
