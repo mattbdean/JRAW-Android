@@ -25,7 +25,7 @@ Add these `<meta-data>` keys to your manifest:
 </application>
 ```
 
-The `REDDIT_USERNAME` key is used to create a UserAgent for your app. See [here](https://github.com/mattbdean/JRAW-Android/blob/1.0.0/lib/src/main/kotlin/net/dean/jraw/android/ManifestAppInfoProvider.kt) for more details.
+The `REDDIT_USERNAME` key is used to create a UserAgent for your app. See [here](https://github.com/mattbdean/JRAW-Android/blob/master/lib/src/main/kotlin/net/dean/jraw/android/ManifestAppInfoProvider.kt) for more details.
 
 Create your `Application` class:
 
@@ -78,7 +78,7 @@ public final class App extends Application {
 }
 ```
 
-Now you can start using JRAW! The [example app](https://github.com/mattbdean/JRAW-Android/tree/1.0.0/example-app) fully implements the reddit authentication process. I highly encourage you to build and install the app and read the source code to get a better understanding of the whole process.
+Now you can start using JRAW! The [example app](https://github.com/mattbdean/JRAW-Android/tree/master/example-app) fully implements the reddit authentication process. I highly encourage you to build and install the app and read the source code to get a better understanding of the whole process.
 
 ## Versioning
 
