@@ -43,7 +43,11 @@ class ManifestAppInfoProvider(private val context: Context) : AppInfoProvider {
                 .getApplicationInfo(context.packageName, PackageManager.GET_META_DATA)
                 .metaData
 
-        val ua = userAgent(metadata)
+        // Pull version from here instead of BuildConfig. The end result will be the same for the
+        // user.
+        val version = context.packageManager.getPackageInfo(context.packageName, 0).versionName
+
+        val ua = userAgent(metadata, version)
 
         return AppInfo(
                 clientId = requireString(metadata, KEY_CLIENT_ID, "client ID"),
@@ -52,11 +56,11 @@ class ManifestAppInfoProvider(private val context: Context) : AppInfoProvider {
         )
     }
 
-    private fun userAgent(b: Bundle): UserAgent {
+    private fun userAgent(b: Bundle, version: String): UserAgent {
         val username = b.getString(KEY_REDDIT_USERNAME)
 
         if (username != null)
-            return UserAgent(PLATFORM, context.packageName, BuildConfig.VERSION_NAME, username)
+            return UserAgent(PLATFORM, context.packageName, version, username)
 
         val override = b.getString(KEY_USER_AGENT_OVERRIDE)
         if (override != null)

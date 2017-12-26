@@ -2,6 +2,7 @@ package net.dean.jraw.android
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import com.nhaarman.mockito_kotlin.doReturn
@@ -19,6 +20,7 @@ class ManifestAppInfoProviderTest {
     private val mockClientId = "<client ID>"
     private val mockRedirectUrl = "<redirect URL>"
     private val mockUsername = "<reddit username>"
+    private val mockVersionName = "<version name>"
 
     private fun init(includeCreds: Boolean, initBundle: (empty: Bundle) -> Unit = {}): ManifestAppInfoProvider {
         val b = Bundle()
@@ -29,14 +31,19 @@ class ManifestAppInfoProviderTest {
 
         initBundle(b)
 
-        val info = ApplicationInfo()
-        info.metaData = b
+        val appInfo = ApplicationInfo()
+        appInfo.metaData = b
+
+        val packageInfo = PackageInfo()
+        packageInfo.versionName = mockVersionName
 
         // Mock the call to context.getPackageManager().getApplicationInfo(...). There's probably a
         // better way to do this.
         val mockPm = mock<PackageManager> {
             on { getApplicationInfo(BuildConfig.APPLICATION_ID, PackageManager.GET_META_DATA) }
-                    .doReturn(info)
+                    .doReturn(appInfo)
+            on { getPackageInfo(BuildConfig.APPLICATION_ID, 0) }
+                    .doReturn(packageInfo)
         }
 
         val mockContext = mock<Context> {
@@ -54,7 +61,7 @@ class ManifestAppInfoProviderTest {
         }
 
         provider.provide().should.equal(AppInfo(mockClientId, mockRedirectUrl,
-                UserAgent("android", BuildConfig.APPLICATION_ID, BuildConfig.VERSION_NAME, mockUsername)))
+                UserAgent("android", BuildConfig.APPLICATION_ID, mockVersionName, mockUsername)))
     }
 
     @Test
