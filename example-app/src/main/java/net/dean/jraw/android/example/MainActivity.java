@@ -115,15 +115,12 @@ public class MainActivity extends AppCompatActivity {
             ));
 
             // Listen for the view being clicked
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int itemPos = recyclerView.getChildLayoutPosition(view);
+            view.setOnClickListener(clickedView -> {
+                int itemPos = recyclerView.getChildLayoutPosition(clickedView);
 
-                    // Potential bug: Clicking on two different items in a very short period of time
-                    // could cause this task to be executed twice
-                    new ReauthenticationTask(activity).execute(usernames.get(itemPos));
-                }
+                // Potential bug: Clicking on two different items in a very short period of time
+                // could cause this task to be executed twice
+                new ReauthenticationTask(activity).execute(usernames.get(itemPos));
             });
 
             return new AuthDataViewHolder(view);

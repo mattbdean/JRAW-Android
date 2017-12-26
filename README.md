@@ -56,23 +56,20 @@ public final class App extends Application {
 
         // Every time we use the AccountHelper to switch between accounts (from one account to
         // another, or into/out of userless mode), call this function
-        accountHelper.onSwitch(new Function1<RedditClient, Unit>() {
-            @Override
-            public Unit invoke(RedditClient redditClient) {
-                // By default, JRAW logs HTTP activity to System.out. We're going to use Log.i()
-                // instead.
-                LogAdapter logAdapter = new SimpleAndroidLogAdapter(Log.INFO);
+        accountHelper.onSwitch(redditClient -> {
+            // By default, JRAW logs HTTP activity to System.out. We're going to use Log.i()
+            // instead.
+            LogAdapter logAdapter = new SimpleAndroidLogAdapter(Log.INFO);
 
-                // We're going to use the LogAdapter to write down the summaries produced by
-                // SimpleHttpLogger
-                redditClient.setLogger(
-                        new SimpleHttpLogger(SimpleHttpLogger.DEFAULT_LINE_LENGTH, logAdapter));
+            // We're going to use the LogAdapter to write down the summaries produced by
+            // SimpleHttpLogger
+            redditClient.setLogger(
+                    new SimpleHttpLogger(SimpleHttpLogger.DEFAULT_LINE_LENGTH, logAdapter));
 
-                // If you want to disable logging, use a NoopHttpLogger instead:
-                // redditClient.setLogger(new NoopHttpLogger());
+            // If you want to disable logging, use a NoopHttpLogger instead:
+            // redditClient.setLogger(new NoopHttpLogger());
 
-                return null;
-            }
+            return null;
         });
     }
 
