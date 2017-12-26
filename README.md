@@ -80,6 +80,18 @@ public final class App extends Application {
 
 Now you can start using JRAW! The [example app](https://github.com/mattbdean/JRAW-Android/tree/master/example-app) fully implements the reddit authentication process. I highly encourage you to build and install the app and read the source code to get a better understanding of the whole process.
 
+## Javadoc
+
+JRAW-Android uses JitPack to host its Javadoc.
+
+```
+https://jitpack.io/com/github/mattbdean/JRAW-Android/VERSION/javadoc/index.html
+```
+
+`VERSION` can be a specific commit hash (like [`9390529`](https://jitpack.io/com/github/mattbdean/JRAW-Android/9390529/javadoc/index.html)), a tag, or the HEAD of a branch (like [`master-SNAPSHOT`](https://jitpack.io/com/github/mattbdean/JRAW-Android/master-SNAPSHOT/javadoc/index.html)).
+
+JitPack produces Javadoc only when necessary, so the first time someone accesses the Javadoc for a specific build it may take a little bit.
+
 ## Versioning
 
 Unless otherwise noted, JRAW-Android's version is the same as JRAW. So JRAW-Android v1.1.0 would use JRAW v1.1.0.
