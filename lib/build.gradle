@@ -1,5 +1,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.github.dcendents.android-maven'
+
+// https://github.com/dcendents/android-maven-gradle-plugin/issues/9#issuecomment-73550293
+project.archivesBaseName = 'JRAW-Android'
+// https://jitpack.io/docs/ANDROID/
+group = 'com.github.mattbdean'
+version = projectVersion
 
 android {
     compileSdkVersion 27
@@ -10,7 +17,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0.0"
+        versionName projectVersion
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
