@@ -11,7 +11,7 @@ import java.util.*
 
 /**
  * A few JRAW utility methods specific to the Android platform. See
- * [https://mattbdean.gitbooks.io/jraw/content/oauth2.html#accounthelper] here for more information.
+ * [here](https://mattbdean.gitbooks.io/jraw/content/oauth2.html#accounthelper) for more information.
  */
 object AndroidHelper {
     /** Creates an AccountHelper */

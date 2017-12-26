@@ -11,25 +11,25 @@ import net.dean.jraw.http.UserAgent
  * Include this in your `AndroidManifest.xml`:
  *
  * ```xml
- * <application android:name="foo" (...)>
+ * &lt;application android:name="foo" (...)&gt;
  *     (...)
  *
- *     <meta-data
+ *     &lt;meta-data
  *         android:name="net.dean.jraw.android.REDDIT_USERNAME"
- *         android:value="(your reddit username)" />
+ *         android:value="(your reddit username)" /&gt;
  *
- *     <meta-data
+ *     &lt;meta-data
  *         android:name="net.dean.jraw.android.CLIENT_ID"
- *         android:value="(your client ID)" />
+ *         android:value="(your client ID)" /&gt;
  *
- *     <meta-data
+ *     &lt;meta-data
  *         android:name="net.dean.jraw.android.REDIRECT_URL"
- *         android:value="(your redirect URL)" />
- * </application
+ *         android:value="(your redirect URL)" /&gt;
+ * &lt;/application&gt;
  * ```
  *
  * If the application's ID is "com.example.app", then the resulting AppInfo's UserAgent will be
- * something like this: `android:com.example.app:${version} (by /u/${username})` where `${version}
+ * something like this: `android:com.example.app:${version} (by /u/${username})` where `${version}`
  * is `BuildConfig.VERSION_NAME`.
  *
  * If this doesn't suit your needs, use `net.dean.jraw.android.USER_AGENT_OVERRIDE` instead of

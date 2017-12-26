@@ -1,9 +1,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'org.jetbrains.dokka-android'
+
+ext.projectName = 'JRAW-Android'
 
 // https://github.com/dcendents/android-maven-gradle-plugin/issues/9#issuecomment-73550293
-project.archivesBaseName = 'JRAW-Android'
+project.archivesBaseName = projectName
 // https://jitpack.io/docs/ANDROID/
 group = 'com.github.mattbdean'
 version = projectVersion
@@ -48,4 +51,37 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:3.5.1'
     testImplementation 'com.winterbe:expekt:0.5.0'
     testImplementation 'com.nhaarman:mockito-kotlin-kt1.1:1.5.0'
+}
+
+dokka {
+    moduleName = 'jraw-android'
+    jdkVersion = 7
+    impliedPlatforms = ['JVM']
+    reportNotDocumented = true
+    outputFormat = 'javadoc'
+
+    linkMapping {
+        dir = file('src/main/kotlin')
+        url = 'https://github.com/mattbdean/JRAW-Android/tree/master/lib/src/main/kotlin'
+        suffix = '#L'
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: dokka) {
+    classifier = 'javadoc'
+    from dokka.outputDirectory
+    baseName = projectName
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+    baseName = projectName
+}
+
+// When JitPack builds, it runs the install task (from the maven plugin) to install all artifacts listed here to the
+// local repository. List the sources and Javadoc jar here to make it available to JitPack users.
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }
