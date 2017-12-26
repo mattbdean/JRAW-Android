@@ -1,19 +1,8 @@
-# IntelliJ
-.idea/
 *.iml
-*.ipr
-*.iws
-
-# Gradle
-.gradle/
-build/
-out/
-local.properties
-
-# Testing account credentials
-src/test/resources/credentials.json
-
-# Local todo list
-todo.txt
-
-bin/
+.gradle
+/local.properties
+.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild

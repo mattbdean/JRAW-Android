@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="net.dean.jrawandroidexample.activities.MainActivity"
-    android:orientation="vertical">
+    tools:context="net.dean.jraw.android.example.MainActivity">
 
-    <Button
-        android:text="Login"
+    <!--Only one child of this LinearLayout will be visible at a time-->
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="login" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:text="User information"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="userInfo" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/storedDataList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/noDataMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/no_stored_data" />
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/newUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:tint="@android:color/white"
+        android:onClick="onNewUserRequested"
+        app:srcCompat="@drawable/ic_plus"
+        app:layout_anchor="@id/container"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+</android.support.design.widget.CoordinatorLayout>
