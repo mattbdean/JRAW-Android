@@ -1,7 +1,7 @@
 buildscript {
     ext {
         kotlinVersion = '1.2.0'
-        jraw = 'com.github.mattbdean.JRAW:lib:master-SNAPSHOT'
+        jraw = 'com.github.mattbdean:JRAW:master-SNAPSHOT'
     }
     repositories {
         google()
