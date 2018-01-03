@@ -2,8 +2,9 @@ buildscript {
     ext {
         kotlinVersion = '1.2.10'
         dokkaVersion = '0.9.15'
-        jraw = 'com.github.mattbdean:JRAW:master-SNAPSHOT'
-        projectVersion = '0.9.0'
+        projectVersion = '1.0.0'
+//        jraw = 'com.github.mattbdean:JRAW:master-SNAPSHOT'
+        jraw = "net.dean.jraw:JRAW:${projectVersion}"
     }
     repositories {
         google()
@@ -26,7 +27,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url 'https://jitpack.io' }
     }
 }
 

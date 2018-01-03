@@ -8,7 +8,7 @@ ext.projectName = 'JRAW-Android'
 // https://github.com/dcendents/android-maven-gradle-plugin/issues/9#issuecomment-73550293
 project.archivesBaseName = projectName
 // https://jitpack.io/docs/ANDROID/
-group = 'com.github.mattbdean'
+group = System.getenv("JITPACK") ? 'com.github.mattbdean' : 'net.dean.jraw'
 version = projectVersion
 
 android {
