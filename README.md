@@ -107,6 +107,27 @@ https://jitpack.io/com/github/mattbdean/JRAW-Android/VERSION/javadoc/index.html
 
 JitPack produces Javadoc only when necessary, so the first time someone accesses the Javadoc for a specific build it may take a little bit.
 
+## FAQ
+
+### How do I pass data around?
+
+All JRAW models implement Serializable, so methods like [`Parcel.writeSerializable`](https://developer.android.com/reference/android/os/Parcel.html#writeSerializable(java.io.Serializable)) and [`Bundle.getSerializable`](https://developer.android.com/reference/android/os/Bundle.html#getParcelable(java.lang.String)) should work fine. You can also transform models to/from JSON if you're concerned about speed:
+
+```java
+// The serializeNulls() here is very important
+JsonAdapter<Submission> adapter = JrawUtils.moshi.adapter(Submission.class).serializeNulls();
+String json = adapter.toJson(someSubmission);
+
+// Add the JSON to your Bundle/Parcel/whatever
+bundle.putString("mySubmission", json);
+
+// Later...
+Submission pojo = adapter.fromJson(bundle.getString("mySubmission"));
+someSubmission.equals(pojo); // => true
+```
+
+See [mattbdean/JRAW#221](https://github.com/mattbdean/JRAW/issues/221) for why the adapter needs to serialize nulls.
+
 ## Versioning
 
 Unless otherwise noted, JRAW-Android's version is the same as JRAW. So JRAW-Android v1.1.0 would use JRAW v1.1.0.
