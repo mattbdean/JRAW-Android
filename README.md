@@ -15,6 +15,7 @@ repositories {
 }
 
 dependencies {
+    // If you include JRAW-Android, you don't need to also include JRAW.
     implementation 'net.dean.jraw:JRAW-Android:1.0.0'
 }
 ```
@@ -127,6 +128,26 @@ someSubmission.equals(pojo); // => true
 ```
 
 See [mattbdean/JRAW#221](https://github.com/mattbdean/JRAW/issues/221) for why the adapter needs to serialize nulls.
+
+### How do I use a different version of JRAW (i.e. from JitPack)?
+
+To use a different version of JRAW than the one directly depended on by JRAW-Android, use this:
+
+```groovy
+repositories {
+    // Assuming that you want to use a JitPack build
+    maven { url 'https://jitpack.io' }
+}
+dependencies {
+    compile('net.dean.jraw:JRAW-Android:1.0.0') {
+        // Don't use the version of JRAW that JRAW-Android depends on
+        exclude group: 'net.dean.jraw'
+    }
+    // JRAW-Android still expects JRAW classes to be available on the classpath. Include a specific
+    // version of them via JitPack. See https://jitpack.io/#mattbdean/JRAW for more information.
+    compile 'com.github.mattbdean:JRAW:<tag>'
+}
+```
 
 ## Versioning
 
