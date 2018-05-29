@@ -1,7 +1,7 @@
 buildscript {
     ext {
         kotlinVersion = '1.2.41'
-        dokkaVersion = '0.9.15'
+        dokkaVersion = '0.9.17'
         projectVersion = '1.1.0'
 //        jraw = 'com.github.mattbdean:JRAW:master-SNAPSHOT'
         jraw = "net.dean.jraw:JRAW:${projectVersion}"
