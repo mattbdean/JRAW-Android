@@ -2,7 +2,7 @@
 
 [![travis-ci build status](https://img.shields.io/travis/mattbdean/JRAW-Android.svg)](https://travis-ci.org/mattbdean/JRAW-Android)
 [![Latest release](https://img.shields.io/github/release/mattbdean/JRAW.svg)](https://bintray.com/thatjavanerd/maven/JRAW-Android/_latestVersion)
-[![Kotlin 1.2.10](https://img.shields.io/badge/Kotlin-1.2.10-blue.svg)](http://kotlinlang.org)
+[![Kotlin 1.2.41](https://img.shields.io/badge/Kotlin-1.2.41-blue.svg)](http://kotlinlang.org)
 [![Codecov](https://img.shields.io/codecov/c/github/mattbdean/JRAW-Android.svg)](https://codecov.io/gh/mattbdean/JRAW-Android)
 
 This is an extension to the [Java Reddit API Wrapper](https://github.com/mattbdean/JRAW) that adds some Android-specific classes.
@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     // If you include JRAW-Android, you don't need to also include JRAW.
-    implementation 'net.dean.jraw:JRAW-Android:1.0.0'
+    implementation 'net.dean.jraw:JRAW-Android:1.1.0'
 }
 ```
 
