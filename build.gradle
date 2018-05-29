@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.10'
+        kotlinVersion = '1.2.41'
         dokkaVersion = '0.9.15'
         projectVersion = '1.0.0'
 //        jraw = 'com.github.mattbdean:JRAW:master-SNAPSHOT'
@@ -12,10 +12,10 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.10.0'
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.1'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:${dokkaVersion}"
     }
@@ -32,4 +32,9 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.7'
+    distributionType = org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
 }
