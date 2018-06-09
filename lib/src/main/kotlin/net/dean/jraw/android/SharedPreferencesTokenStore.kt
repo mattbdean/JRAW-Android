@@ -14,11 +14,18 @@ import net.dean.jraw.oauth.DeferredPersistentTokenStore
  * SharedPreferences are persisted using `apply()` rather than `commit()`, so it might be a good
  * idea to enable [autoPersist].
  *
+ * Create an instance using [create].
+ *
  * It should be noted that this is probably not the most efficient or secure means of storing this
  * kind of data. For apps that have several hundred users, it might be better to store this
  * information in a database.
  */
-class SharedPreferencesTokenStore(context: Context) : DeferredPersistentTokenStore() {
+class SharedPreferencesTokenStore
+    @Deprecated(
+            message = "Use SharedPreferencesTokenStore.create()",
+            replaceWith = ReplaceWith("SharedPreferencesTokenStore.create(context)")
+    ) constructor(context: Context) : DeferredPersistentTokenStore() {
+
     val sharedPreferences: SharedPreferences = context.getSharedPreferences(
             context.getString(R.string.prefs_file), Context.MODE_PRIVATE)
 
@@ -45,6 +52,18 @@ class SharedPreferencesTokenStore(context: Context) : DeferredPersistentTokenSto
 
     companion object {
         private val adapter: JsonAdapter<PersistedAuthData> = JrawUtils.adapter()
+
+        /**
+         * Creates a SharedPreferencesTokenStore and loads the existing data. Also enables
+         * [autoPersist].
+         */
+        @JvmStatic fun create(context: Context): SharedPreferencesTokenStore {
+            @Suppress("DEPRECATION")
+            val store = SharedPreferencesTokenStore(context)
+            store.load()
+            store.autoPersist = true
+            return store
+        }
     }
 }
 

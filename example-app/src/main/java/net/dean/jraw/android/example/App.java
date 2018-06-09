@@ -33,11 +33,7 @@ public final class App extends Application {
         UUID deviceUuid = UUID.randomUUID();
 
         // Store our access tokens and refresh tokens in shared preferences
-        tokenStore = new SharedPreferencesTokenStore(getApplicationContext());
-        // Load stored tokens into memory
-        tokenStore.load();
-        // Automatically save new tokens as they arrive
-        tokenStore.setAutoPersist(true);
+        tokenStore = SharedPreferencesTokenStore.create(getApplicationContext());
 
         // An AccountHelper manages switching between accounts and into/out of userless mode.
         accountHelper = AndroidHelper.accountHelper(provider, deviceUuid, tokenStore);
