@@ -57,7 +57,7 @@ dokka {
     moduleName = 'jraw-android'
     jdkVersion = 7
     impliedPlatforms = ['JVM']
-    reportNotDocumented = true
+    reportUndocumented = true
     outputFormat = 'javadoc'
 
     linkMapping {
